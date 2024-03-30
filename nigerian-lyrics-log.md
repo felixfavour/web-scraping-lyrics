@@ -1,9 +1,10 @@
 ## Request
 artists = ["Dunsin Oyekan", "Mercy Chinwo", "Nathaniel Bassey", "Sinach", "Frank Edwards", "Ada Ehi", "Lara George", "Ebennig", "Moses Bliss", "Judikay", "Minister GUC"]
 
-## Time of operation
-10:31:98
-MM:SS:mm
+## Duration of operation
+00:10:31:98
+
+HH:MM:SS:mm
 
 ## Logs
 No lyrics found for:  Mercy-chinwo-only-you-satisfy-lyrics

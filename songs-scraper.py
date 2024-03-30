@@ -6,6 +6,8 @@ album_class_name = "ListItem__Link-sc-122yj9e-1"
 song_class_name = "u-display_block"
 lyrics_class_name = "Lyrics__Container-sc-1ynbvzw-1"
 
+artists=[]
+
 artist_name = "Dunsin Oyekan"
 all_songs_data = [
     {
@@ -182,6 +184,7 @@ all_songs_data = [
     },
 ]
 
+
 def getAlbumTitlesFromArtistPage (url):
     try:
         response = requests.get(url)
@@ -244,23 +247,22 @@ def getAllLyricsDataFromArtists ():
                 temp_song_data["lyrics"] = lyrics
                 all_songs_data.append(temp_song_data)
 
-getAllLyricsDataFromArtists()
-
+temp_songs = []
 for song in all_songs_data:
-    temp_song = {"lyrics": "", "title": "", "album" : "", "cover": "", "artist": artist_name}
+    temp_song = {"lyrics": "", "title": "", "album" : "", "cover": "https://images.genius.com/584041567278778fe32f06408686d63d.599x599x1.png", "artist": artist_name}
     temp_song["title"] = song["title"]
     lyrics = getLyricsFromSongPage(song["url"])
     temp_song["lyrics"] = lyrics
-
+    temp_songs.append((temp_song))
 
 # Write lyrics data to CSV file
 data = [
     ["lyrics", "title", "album", "cover", "artist"]
 ]
-for row in all_songs_data:
+for row in temp_songs:
     data.append(list(row.values()))
 
-with open("lyrics_data_foreign.csv", 'w', newline='') as file:
+with open("lyrics_data_naija_1.csv", 'w', newline='') as file:
     writer = csv.writer(file)
     writer.writerows(data)
 
