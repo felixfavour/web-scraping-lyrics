@@ -8,7 +8,8 @@ lyrics_class_name = "Lyrics__Container-sc-1ynbvzw-1"
 
 all_songs_data = []
 # artists = ["Dunsin Oyekan", "Mercy Chinwo", "Nathaniel Bassey", "Sinach", "Frank Edwards", "Ada Ehi", "Lara George", "Ebennig", "Moses Bliss", "Judikay", "Minister GUC"]
-artists = ["Hillsong Worship", "Hillsong United", "Maverick City Music", "Ron Kenoly", "Integrity's Hosanna Music", "Donnie McClurkin", "Tasha Cobbs", "Chris Tomlin", "William McDowell", "Cece Winans", "Todd Dulaney", "Travis Greene", "Israel Houghton", "Micah Stampley", "Don Moen", "Bethel Music", "Planetshakers", "Jesus Culture", "Phil Wickham", "Elevation Worship", "TY Bello"]
+# artists = ["Hillsong Worship", "Hillsong United", "Maverick City Music", "Ron Kenoly", "Integrity's Hosanna Music", "Donnie McClurkin", "Tasha Cobbs", "Chris Tomlin", "William McDowell", "Cece Winans", "Todd Dulaney", "Travis Greene", "Israel Houghton", "Micah Stampley", "Don Moen", "Bethel Music", "Planetshakers", "Jesus Culture", "Phil Wickham", "Elevation Worship", "TY Bello"]
+artists = ["Jesus Culture", "Phil Wickham", "Elevation Worship", "TY Bello"]
 
 # album_urls = [
 #     # Nathaniel Bassey
@@ -28,7 +29,7 @@ artists = ["Hillsong Worship", "Hillsong United", "Maverick City Music", "Ron Ke
 # with open('song-titles.txt', 'w') as file:
 #     file.write(lyrics)
 
-def getAlbumTitlesFromArtistPage (url):
+def get_album_titles_from_artist_page (url):
     try:
         response = requests.get(url)
         soup = BeautifulSoup(response.content, "html.parser")
@@ -45,7 +46,7 @@ def getAlbumTitlesFromArtistPage (url):
         print("No albums found for: ", url.replace("https://genius.com/artists/", ""))
         return []
 
-def getSongTitlesFromAlbumPage (url):
+def get_song_titles_from_album_page (url):
     try:
         response = requests.get(url)
         soup = BeautifulSoup(response.content, "html.parser")
@@ -61,7 +62,7 @@ def getSongTitlesFromAlbumPage (url):
         print("No song titles found for: ", url.replace("https://genius.com/albums/", ""))
         return []
 
-def getLyricsFromSongPage (url):
+def get_lyrics_from_song_page (url):
     # url = "https://genius.com/Nathaniel-bassey-carry-me-lyrics"
     try:
         response = requests.get(url)
@@ -72,12 +73,12 @@ def getLyricsFromSongPage (url):
         print("No lyrics found for: ", url.replace("https://genius.com/", ""))
         return "No lyrics here"
 
-def getAllLyricsDataFromArtists ():
+def get_all_lyrics_data_from_artists ():
     for artist in artists:
         formattedArtist = artist.lower().replace(' ', '-').replace("'", "")
-        albums = getAlbumTitlesFromArtistPage("https://genius.com/artists/" + formattedArtist + "/albums")
+        albums = get_album_titles_from_artist_page("https://genius.com/artists/" + formattedArtist + "/albums")
         for album in albums:
-            songs = getSongTitlesFromAlbumPage(album["url"])
+            songs = get_song_titles_from_album_page(album["url"])
             for song in songs:
                 temp_song_data = {
                     "lyrics": "",
@@ -86,11 +87,12 @@ def getAllLyricsDataFromArtists ():
                     "cover": album["cover"],
                     "artist": artist
                 }
-                lyrics = getLyricsFromSongPage(song["url"])
+                lyrics = get_lyrics_from_song_page(song["url"])
                 temp_song_data["lyrics"] = lyrics
                 all_songs_data.append(temp_song_data)
 
-getAllLyricsDataFromArtists()
+
+get_all_lyrics_data_from_artists()
 
 # Write lyrics data to CSV file
 data = [
