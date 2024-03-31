@@ -8,8 +8,7 @@ lyrics_class_name = "Lyrics__Container-sc-1ynbvzw-1"
 
 all_songs_data = []
 # artists = ["Dunsin Oyekan", "Mercy Chinwo", "Nathaniel Bassey", "Sinach", "Frank Edwards", "Ada Ehi", "Lara George", "Ebennig", "Moses Bliss", "Judikay", "Minister GUC"]
-# artists = ["Hillsong Worship", "Hillsong United", "Maverick City Music", "Ron Kenoly", "Integrity's Hosanna Music", "Donnie McClurkin", "Tasha Cobbs", "Chris Tomlin", "William McDowell", "Cece Winans", "Todd Dulaney", "Travis Greene", "Israel Houghton", "Micah Stampley", "Don Moen", "Bethel Music", "Planetshakers", "Jesus Culture", "Phil Wickham", "Elevation Worship", "TY Bello"]
-artists = ["Jesus Culture", "Phil Wickham", "Elevation Worship", "TY Bello"]
+artists = ["Hillsong Worship", "Hillsong United", "Maverick City Music", "Ron Kenoly", "Integrity's Hosanna Music", "Donnie McClurkin", "Tasha Cobbs", "Chris Tomlin", "William McDowell", "Cece Winans", "Todd Dulaney", "Travis Greene", "Israel Houghton", "Micah Stampley", "Don Moen", "Bethel Music", "Planetshakers", "Jesus Culture", "Phil Wickham", "Elevation Worship", "TY Bello"]
 
 # album_urls = [
 #     # Nathaniel Bassey
