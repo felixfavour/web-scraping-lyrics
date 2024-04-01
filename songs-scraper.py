@@ -1,4 +1,5 @@
 import csv
+import re
 import requests
 from bs4 import BeautifulSoup
 
@@ -247,24 +248,44 @@ def getAllLyricsDataFromArtists ():
                 temp_song_data["lyrics"] = lyrics
                 all_songs_data.append(temp_song_data)
 
-temp_songs = []
-for song in all_songs_data:
-    temp_song = {"lyrics": "", "title": "", "album" : "", "cover": "https://images.genius.com/584041567278778fe32f06408686d63d.599x599x1.png", "artist": artist_name}
-    temp_song["title"] = song["title"]
-    lyrics = getLyricsFromSongPage(song["url"])
-    temp_song["lyrics"] = lyrics
-    temp_songs.append((temp_song))
+# temp_songs = []
+# for song in all_songs_data:
+#     temp_song = {"lyrics": "", "title": "", "album" : "", "cover": "https://images.genius.com/584041567278778fe32f06408686d63d.599x599x1.png", "artist": artist_name}
+#     temp_song["title"] = song["title"]
+#     lyrics = getLyricsFromSongPage(song["url"])
+#     temp_song["lyrics"] = lyrics
+#     temp_songs.append((temp_song))
+#
+# # Write lyrics data to CSV file
+# data = [
+#     ["lyrics", "title", "album", "cover", "artist"]
+# ]
+# for row in temp_songs:
+#     data.append(list(row.values()))
+#
+# with open("lyrics_data_naija_1.csv", 'w', newline='') as file:
+#     writer = csv.writer(file)
+#     writer.writerows(data)
+#
+# print("CSV data written")
 
-# Write lyrics data to CSV file
-data = [
-    ["lyrics", "title", "album", "cover", "artist"]
-]
-for row in temp_songs:
-    data.append(list(row.values()))
 
-with open("lyrics_data_naija_1.csv", 'w', newline='') as file:
-    writer = csv.writer(file)
-    writer.writerows(data)
+response = requests.get("https://www.boomplay.com/songs/118390578?from=artists")
+soup = BeautifulSoup(response.content, "html.parser")
+lyrics_page_link = "https://boomplay.com" + soup.find(name="a", class_="lyrics_more").get('href')
 
-print("CSV data written")
+lyrics_response = requests.get(lyrics_page_link)
+lyrics_soup = BeautifulSoup(lyrics_response.content, "html.parser")
+
+title = lyrics_soup.find(name="h1").text.replace("Lyrics", "").strip()
+artist = lyrics_soup.find(name="a", class_="ownerWrap").text.replace("Artist: ", "").strip()
+album = lyrics_soup.find(name="a", class_="ownerWrap_album").text.replace("Album: ", "").strip()
+lyrics = lyrics_soup.find(name="div", class_="lyrics").get_text(separator='\n').strip()
+lyrics = lyrics[lyrics.index("...") + 3:len(lyrics)].replace("........", "").strip()
+
+print(title + "\n\n")
+print(artist + "\n\n")
+print(album + "\n\n")
+print(lyrics)
+
 
